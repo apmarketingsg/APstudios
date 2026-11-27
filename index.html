@@ -150,32 +150,12 @@
   .card p { color: var(--muted); margin: 0; }
   @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
 
-  /* Estimator */
-  #estimator .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); }
-  .est-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field.full { grid-column: 1 / -1; }
-  label, legend { font-weight: 600; font-size: .92rem; }
-  input, select, textarea {
-    font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line);
-    border-radius: 10px; padding: 11px 12px; width: 100%;
-  }
-  input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
-  fieldset { border: 0; padding: 0; margin: 0; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-  .chip { position: relative; }
-  .chip input { position: absolute; inset: 0; opacity: 0; pointer-events: none; margin: 0; }
-  .chip span {
-    display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
-    background: var(--bg); cursor: pointer; font-size: .9rem; user-select: none;
-  }
-  .chip input:checked + span { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
-  .chip input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
-  .est-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+  /* Estimator CTA */
+  .est-cta { display: flex; justify-content: space-between; align-items: center; gap: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 36px; box-shadow: var(--shadow); }
+  .est-cta .btn { flex: none; }
+  .est-points { margin: 0; padding-left: 20px; color: var(--muted); }
   .small { font-size: .85rem; color: var(--muted); }
-  #est-result { display: none; margin-top: 24px; background: var(--brand-soft); border-radius: 14px; padding: 20px 24px; }
-  #est-result h3 { margin-bottom: .3em; }
-  @media (max-width: 640px) { .est-grid { grid-template-columns: 1fr; } #estimator .panel { padding: 22px; } }
+  @media (max-width: 760px) { .est-cta { flex-direction: column; align-items: flex-start; padding: 24px; } }
 
   /* Footer */
   footer { padding: 48px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
@@ -192,7 +172,7 @@
       <a href="#journey">Your journey</a>
       <a href="#promise">How we work</a>
       <a href="#contact">Contact</a>
-      <a href="#estimator" class="btn">Start your estimate</a>
+      <a href="estimator.html" class="btn">Start your estimate</a>
     </nav>
   </div>
 </header>
@@ -206,7 +186,7 @@
         <h1>One consultant. From first sketch to the day you get your keys.</h1>
         <p class="lead">We renovate BTO flats and condos. You get a dedicated consultant who walks you through every step, every decision and every payment, so you always know what happens next.</p>
         <div class="ctas">
-          <a href="#estimator" class="btn">Start with the estimator (30 min)</a>
+          <a href="estimator.html" class="btn">Start with the estimator (30 min)</a>
           <a href="#journey" class="btn ghost">See the 10 steps</a>
         </div>
       </div>
@@ -249,7 +229,7 @@
       <div class="phase">
         <div class="phase-label"><h3>Plan</h3><p>Understand your home and your budget</p></div>
         <ol class="steps" start="1">
-          <li class="step"><span class="marker">1</span><div class="step-card"><div><div class="step-title">Fill in our estimator tool</div><div class="step-note">Tell us about your home and what you want done. You can do it from your sofa.</div></div><span class="duration">30 min</span></div></li>
+          <li class="step"><span class="marker">1</span><div class="step-card"><div><div class="step-title"><a href="estimator.html">Fill in our estimator tool</a></div><div class="step-note">Tell us about your home and what you want done. You can do it from your sofa.</div></div><span class="duration">30 min</span></div></li>
           <li class="step"><span class="marker">2</span><div class="step-card"><div><div class="step-title">Site survey and in-house consultation</div><div class="step-note">Your consultant measures up, then sits down with you to talk through ideas.</div></div><span class="duration">4 hours</span></div></li>
           <li class="step"><span class="marker">3</span><div class="step-card"><div><div class="step-title">Sample artwork delivery and confirmation</div><div class="step-note">We prepare design samples for you to review and confirm.</div></div><span class="duration">10 days</span></div></li>
           <li class="step"><span class="marker">4</span><div class="step-card"><div><div class="step-title">Follow-up consultation</div><div class="step-note">Fine-tune the design, layout and scope together.</div></div><span class="duration">4 hours</span></div></li>
@@ -318,93 +298,20 @@
   <!-- ESTIMATOR -->
   <section id="estimator">
     <div class="wrap">
-      <div class="eyebrow">Step 1</div>
-      <h2>Start with the estimator</h2>
-      <p class="lead">Tell us about your home. Your consultant will review it and contact you to arrange the site survey.</p>
-
-      <form class="panel" id="est-form" novalidate>
-        <div class="est-grid">
-          <div class="field">
-            <label for="ptype">Property type</label>
-            <select id="ptype" name="ptype" required>
-              <option value="">Choose one</option>
-              <option>BTO (new)</option>
-              <option>BTO (resale)</option>
-              <option>Condo (new)</option>
-              <option>Condo (resale)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="rooms">Flat size</label>
-            <select id="rooms" name="rooms" required>
-              <option value="">Choose one</option>
-              <option>2-room</option>
-              <option>3-room</option>
-              <option>4-room</option>
-              <option>5-room</option>
-              <option>Executive</option>
-              <option>Condo, 1 bedroom</option>
-              <option>Condo, 2 bedrooms</option>
-              <option>Condo, 3 bedrooms</option>
-              <option>Condo, 4 bedrooms or more</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="keys">Key collection or target move-in date</label>
-            <input id="keys" name="keys" type="month">
-          </div>
-          <div class="field">
-            <label for="budget">Budget range</label>
-            <select id="budget" name="budget">
-              <option value="">Not sure yet</option>
-              <option>Below S$30,000</option>
-              <option>S$30,000 to S$50,000</option>
-              <option>S$50,000 to S$80,000</option>
-              <option>S$80,000 to S$120,000</option>
-              <option>Above S$120,000</option>
-            </select>
-          </div>
-
-          <fieldset class="field full">
-            <legend>What would you like done?</legend>
-            <div class="chips" id="scope">
-              <label class="chip"><input type="checkbox" name="scope" value="Hacking and masonry"><span>Hacking and masonry</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Flooring"><span>Flooring</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Kitchen cabinets"><span>Kitchen cabinets</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Wardrobes"><span>Wardrobes</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Bathrooms"><span>Bathrooms</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Electrical and lighting"><span>Electrical and lighting</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Ceiling and false ceiling"><span>Ceiling</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Painting"><span>Painting</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Feature walls and TV console"><span>Feature walls and TV console</span></label>
-              <label class="chip"><input type="checkbox" name="scope" value="Full home"><span>Full home</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field full">
-            <label for="notes">Anything else we should know?</label>
-            <textarea id="notes" name="notes" rows="3" placeholder="Style you like, who lives with you, pets, work from home needs"></textarea>
-          </div>
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" name="name" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="phone">Mobile number</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="8 digit Singapore number" required>
-          </div>
-          <div class="field full">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required>
-          </div>
+      <div class="panel est-cta">
+        <div>
+          <div class="eyebrow">Step 1</div>
+          <h2>Start with the estimator</h2>
+          <p class="lead">Pick your HDB flat or condo, choose the rooms and works you want, and see an indicative price per item as you go. When you are done, request your preliminary proposal by email and your consultant will arrange the site survey.</p>
+          <ul class="est-points">
+            <li>About 30 minutes</li>
+            <li>Room by room, with Standard or Premium options</li>
+            <li>Shows what is included and what is not</li>
+          </ul>
         </div>
-        <div class="est-foot">
-          <p class="small" style="margin:0">We use your details only to contact you about your renovation.</p>
-          <button type="submit" class="btn">Send to my consultant</button>
-        </div>
-        <p class="small" id="est-error" role="alert" style="color:var(--accent);margin:12px 0 0"></p>
-        <div id="est-result" role="status" aria-live="polite"></div>
-      </form>
+        <a href="estimator.html" class="btn">Open the estimator</a>
+      </div>
+      <p class="small" style="margin-top:14px">Prices shown are indicative and before GST if applicable. They are not a quotation. Final pricing follows the site survey.</p>
     </div>
   </section>
 </main>
@@ -430,37 +337,6 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  const form = document.getElementById('est-form');
-  const err = document.getElementById('est-error');
-  const result = document.getElementById('est-result');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    err.textContent = '';
-    const data = new FormData(form);
-    const scope = data.getAll('scope');
-    const missing = [];
-    if (!data.get('ptype')) missing.push('property type');
-    if (!data.get('rooms')) missing.push('flat size');
-    if (!scope.length) missing.push('at least one item of work');
-    if (!String(data.get('name')).trim()) missing.push('your name');
-    if (!/^[689]\d{7}$/.test(String(data.get('phone')).replace(/\s|\+65/g, ''))) missing.push('a valid Singapore mobile number');
-    if (!/^\S+@\S+\.\S+$/.test(String(data.get('email')))) missing.push('a valid email');
-    if (missing.length) { err.textContent = 'Please add ' + missing.join(', ') + '.'; return; }
-
-    // TODO: send `payload` to your backend, CRM or a form service (e.g. Formspree, HubSpot form).
-    const payload = Object.fromEntries(data.entries());
-    payload.scope = scope;
-    console.log('Estimator submission', payload);
-
-    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    result.innerHTML =
-      '<h3>Thank you, ' + esc(payload.name) + '.</h3>' +
-      '<p style="margin:0 0 .5em">We have your details for a <strong>' + esc(payload.rooms) + '</strong> (' + esc(payload.ptype) + ') covering: ' + scope.map(esc).join(', ') + '.</p>' +
-      '<p style="margin:0">Next step: your consultant will call you to arrange the <strong>site survey and in-house consultation</strong> (about 4 hours).</p>';
-    result.style.display = 'block';
-    form.querySelector('button[type=submit]').disabled = true;
-  });
 </script>
 </body>
 </html>
