@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/analyse-floorplan.js": { "maxDuration": 120 },
+    "api/send-proposal.js": { "maxDuration": 30, "includeFiles": "estimator.js" }
+  }
+}
