@@ -150,6 +150,15 @@
   .card p { color: var(--muted); margin: 0; }
   @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
 
+  /* Testimonials */
+  #testimonials { padding-top: 0; }
+  .quote { position: relative; margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+  .quote blockquote { margin: 0; font-family: "Fraunces", Georgia, serif; font-size: 1.1rem; line-height: 1.45; color: var(--ink); }
+  .quote figcaption { display: flex; flex-direction: column; font-size: .9rem; }
+  .quote figcaption span { color: var(--muted); }
+  .sample-tag { position: absolute; top: 12px; right: 12px; font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; }
+  .quote blockquote { padding-right: 56px; }
+
   /* Estimator CTA */
   .est-cta { display: flex; justify-content: space-between; align-items: center; gap: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 36px; box-shadow: var(--shadow); }
   .est-cta .btn { flex: none; }
@@ -291,6 +300,47 @@
           <h3>Payments tied to progress</h3>
           <p>You pay in stages linked to milestones you can see: signing, start of works, final phase and handover.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <!-- PLACEHOLDER CONTENT: replace with real customer quotes (with their consent) before going live, then delete the .sample-tag spans. -->
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="eyebrow">What our customers say</div>
+      <h2>In their words</h2>
+      <div class="grid3">
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;Our consultant answered every WhatsApp, even the silly ones at 11pm. We never felt lost.&rdquo;</blockquote>
+          <figcaption><strong>Tan Wei Ling</strong><span>4-room BTO</span></figcaption>
+        </figure>
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;We knew exactly when each payment was due and what it covered. No surprises.&rdquo;</blockquote>
+          <figcaption><strong>Jason Lim</strong><span>3-bedroom condo</span></figcaption>
+        </figure>
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;Same person from the first site visit to handing us the keys. That made all the difference.&rdquo;</blockquote>
+          <figcaption><strong>Nurul Aisyah</strong><span>5-room BTO</span></figcaption>
+        </figure>
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;The step-by-step timeline meant I could plan my leave around the important days.&rdquo;</blockquote>
+          <figcaption><strong>Priya Raman</strong><span>4-room BTO</span></figcaption>
+        </figure>
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;Material selection was the part I dreaded, but our consultant made it easy and quick.&rdquo;</blockquote>
+          <figcaption><strong>Chloe Ng</strong><span>2-bedroom condo</span></figcaption>
+        </figure>
+        <figure class="card quote">
+          <span class="sample-tag">Sample</span>
+          <blockquote>&ldquo;As newcomers to Singapore, having one person guide us through the whole process was a relief.&rdquo;</blockquote>
+          <figcaption><strong>Daniel Hughes</strong><span>3-bedroom condo</span></figcaption>
+        </figure>
       </div>
     </div>
   </section>
