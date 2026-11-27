@@ -5,7 +5,7 @@ Design and build renovation for BTOs and condos in Singapore.
 - `index.html`: homepage with the 10-step customer journey
 - `estimator.html` + `estimator.js`: the renovation estimator (PRD v0.17 rates and rules)
 - `api/analyse-floorplan.js`: reads an uploaded floor plan (PDF or image) with the Claude API and returns the rooms
-- `api/send-proposal.js`: rebuilds the proposal on the server from `estimator.js` and emails it via Resend to the customer, with a copy to AP Studios
+- `api/send-proposal.js`: rebuilds the proposal on the server from `estimator.js` and emails it via Resend to the customer as a PDF attachment, with a copy to AP Studios
 
 Prices live only in `estimator.js`. The server runs the same file, so the emailed proposal always matches the rate card.
 
@@ -18,7 +18,7 @@ Prices live only in `estimator.js`. The server runs the same file, so the emaile
    - `ANTHROPIC_API_KEY`
    - `RESEND_API_KEY`
    - `PROPOSAL_FROM`, e.g. `AP Studios <proposals@yourdomain.sg>` (must be on the verified domain)
-   - `PROPOSAL_CC`, your own inbox for the copy of every proposal
+   - `PROPOSAL_CC`, the inbox that receives a copy of every proposal (set to the AP Studios marketing inbox; kept out of the code because this repo is public)
 5. Redeploy, then test with your own email and a real floor plan.
 6. Recommended: in Vercel, add a Firewall rate-limit rule for `/api/*`. The built-in limit is per server instance only.
 

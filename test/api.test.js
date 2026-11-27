@@ -73,28 +73,36 @@ test('send-proposal emails the customer and copies AP Studios', async () => {
   let sent;
   fakeFetch = async (url, opts) => { sent = { url, opts, body: JSON.parse(opts.body) }; return new Response('{"id":"1"}', { status: 200 }); };
   const res = mockRes();
-  await sendProposal(mockReq({ state: baseState, email: 'buyer@example.com', phone: '+65 8123 4567', requestId: 'abcdef123456' }), res);
+  await sendProposal(mockReq({ state: baseState, name: 'Tan Wei Ling', email: 'buyer@example.com', phone: '+65 8123 4567', requestId: 'abcdef123456' }), res);
   assert.equal(res.code, 200);
   assert.equal(sent.url, 'https://api.resend.com/emails');
   assert.deepEqual(sent.body.to, ['buyer@example.com']);
   assert.deepEqual(sent.body.cc, ['owner@example.com']);
   assert.equal(sent.opts.headers['Idempotency-Key'], 'abcdef123456');
+  assert.match(sent.body.text, /Dear Tan Wei Ling/);
+  assert.match(sent.body.text, /Name: Tan Wei Ling\nEmail: buyer@example.com\nPhone: \+65 8123 4567/);
   assert.match(sent.body.text, /S\$3,638/);
-  assert.match(sent.body.text, /Contact phone: \+65 8123 4567/);
+  assert.equal(sent.body.attachments.length, 1);
+  assert.equal(sent.body.attachments[0].filename, 'AP-Studios-proposal-Tan-Wei-Ling.pdf');
+  const pdf = Buffer.from(sent.body.attachments[0].content, 'base64');
+  assert.equal(pdf.subarray(0, 5).toString(), '%PDF-');
+  assert.ok(pdf.length > 2000);
 });
 
 test('send-proposal rejects bad contacts, incomplete rooms and bots', async () => {
   fakeFetch = async () => { throw new Error('should not send'); };
-  let res = mockRes(); await sendProposal(mockReq({ state: baseState, email: 'nope', phone: '81234567' }), res); assert.equal(res.code, 400);
-  res = mockRes(); await sendProposal(mockReq({ state: baseState, email: 'a@b.co', phone: '12' }), res); assert.equal(res.code, 400);
-  res = mockRes(); await sendProposal(mockReq({ state: { ...baseState, items: {} }, email: 'a@b.co', phone: '81234567' }), res); assert.equal(res.code, 400);
+  let res = mockRes(); await sendProposal(mockReq({ state: baseState, name: 'Ali', email: 'nope', phone: '81234567' }), res); assert.equal(res.code, 400);
+  res = mockRes(); await sendProposal(mockReq({ state: baseState, name: 'Ali', email: 'a@b.co', phone: '12' }), res); assert.equal(res.code, 400);
+  res = mockRes(); await sendProposal(mockReq({ state: { ...baseState, items: {} }, name: 'Ali', email: 'a@b.co', phone: '81234567' }), res); assert.equal(res.code, 400);
+  res = mockRes(); await sendProposal(mockReq({ state: baseState, email: 'a@b.co', phone: '81234567' }), res); assert.equal(res.code, 400);
+  res = mockRes(); await sendProposal(mockReq({ state: baseState, name: '<>', email: 'a@b.co', phone: '81234567' }), res); assert.equal(res.code, 400);
   res = mockRes(); await sendProposal(mockReq({ state: baseState, email: 'a@b.co', phone: '81234567', website: 'spam' }), res); assert.equal(res.code, 200);
 });
 
 test('send-proposal reports a Resend failure', async () => {
   fakeFetch = async () => new Response('{"message":"bad"}', { status: 422 });
   const res = mockRes();
-  await sendProposal(mockReq({ state: baseState, email: 'a@b.co', phone: '81234567' }), res);
+  await sendProposal(mockReq({ state: baseState, name: 'Ali', email: 'a@b.co', phone: '81234567' }), res);
   assert.equal(res.code, 502);
 });
 

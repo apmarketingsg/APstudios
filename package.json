@@ -9,6 +9,7 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "1.14.0"
+    "@anthropic-ai/sdk": "1.14.0",
+    "pdfkit": "0.21.0"
   }
 }
